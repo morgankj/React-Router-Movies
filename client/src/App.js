@@ -14,13 +14,14 @@ export default function App () {
     const getMovies = () => {
       axios
         .get('http://localhost:5001/api/movies') // Study this endpoint with Postman
-        .then(response => {
-          // Study this response with a breakpoint or log statements
-          // and set the response data as the 'movieList' slice of state
-        })
-        .catch(error => {
-          console.error('Server Error', error);
-        });
+          .then(response => {
+            // Study this response with a breakpoint or log statements
+            // and set the response data as the 'movieList' slice of state
+            setMovieList(response.data);
+          })
+          .catch(error => {
+            console.error('Server Error', error);
+          });
     }
     getMovies();
   }, []);
@@ -32,11 +33,11 @@ export default function App () {
   return (
     <div>
       <SavedList list={[ /* This is stretch */]} />
-      <Route path='/'>
-        <MovieList movies={movieList}/>
-      </Route>
       <Route path={`/movies/:movieID`}>
         <Movie />
+      </Route>
+      <Route path='/'>
+        <MovieList movies={movieList} />
       </Route>
     </div>
   );
